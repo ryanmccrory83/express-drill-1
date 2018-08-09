@@ -7,7 +7,8 @@ const cors = require('cors');
 
 function findById(data, id){
     for (let i = 0; i < data.length; i++){
-        if (data[i].id === id){
+        let cohortString = data[i].id.toString();
+        if (cohortString === id){
             return data[i];
         }
     }return null;
@@ -20,15 +21,15 @@ app.get('/', (request, response) => {
 })
 
 app.get('/:id', (request,response) => {
-    var instructor = findById(data, request.params.id);
-    if (!instructor){
+    const cohort = findById(data, request.params.id);
+    if (!cohort){
         response.status(404).send({
             error: {
                 message: "No record found!"
             }
         })
     }else {
-        response.json({data: instructor});
+        response.json({data: cohort});
     }
 });
 
